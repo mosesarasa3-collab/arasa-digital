@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARASA DIGITAL | Fashion Store</title>
+<meta name="description" content="Discover stylish clothing, sneakers and accessories at Arasa Digital.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c5a15b;--black:#111;--white:#fff;--grey:#f5f5f5}
+body{font-family:Arial,sans-serif;color:var(--black);background:#fff}
+header{background:#111;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.logo span{color:var(--gold)}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-size:13px;font-weight:bold}
+nav a:hover{color:var(--gold)}
+.cart{background:var(--gold);border:0;padding:11px 16px;border-radius:4px;font-weight:bold;cursor:pointer}
+.hero{min-height:430px;background:linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.15)),url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=1400') center/cover;display:flex;align-items:center;padding:50px 8%;color:white}
+.hero-content{max-width:550px}
+.hero small{color:var(--gold);letter-spacing:4px;font-weight:bold}
+.hero h1{font-size:clamp(38px,7vw,68px);margin:20px 0;line-height:1.05}
+.hero p{line-height:1.8;color:#eee;margin-bottom:25px}
+.btn{display:inline-block;background:var(--gold);color:#111;padding:14px 25px;text-decoration:none;font-weight:bold;border:0;cursor:pointer;border-radius:3px}
+.btn:hover{background:white}
+section{padding:55px 6%}
+.section-title{text-align:center;margin-bottom:30px}
+.section-title small{color:#a47c36;letter-spacing:3px;font-weight:bold}
+.section-title h2{font-size:30px;margin-top:10px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.category{height:220px;position:relative;overflow:hidden;background:#ddd}
+.category img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.category:hover img{transform:scale(1.08)}
+.category a{position:absolute;bottom:15px;left:12px;background:#111;color:white;padding:12px 16px;text-decoration:none;font-weight:bold}
+.filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
+.filter{padding:10px 17px;background:white;border:1px solid #ccc;cursor:pointer;border-radius:25px}
+.filter.active,.filter:hover{background:#111;color:white}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product{border:1px solid #eee;background:white;overflow:hidden;transition:.2s}
+.product:hover{box-shadow:0 5px 20px #ddd;transform:translateY(-3px)}
+.product img{width:100%;height:230px;object-fit:cover;background:#eee}
+.product-info{padding:15px}
+.product-info small{color:#888}
+.product-info h3{font-size:16px;margin:9px 0}
+.price{font-weight:bold;color:#a47c36;font-size:18px;margin:10px 0}
+.add{background:#111;color:white;border:0;padding:11px;width:100%;cursor:pointer;font-weight:bold}
+.add:hover{background:var(--gold);color:#111}
+.banner{background:#171717;color:white;text-align:center;padding:55px 15px}
+.banner h2{font-size:32px;margin:12px}
+.banner p{color:#ccc;margin-bottom:20px}
+.about{text-align:center;background:#f7f7f7;line-height:1.9}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
+.contact-card{padding:25px;background:#f5f5f5}
+.contact-card h3{margin-bottom:10px}
+.contact-card a{color:#98712e;text-decoration:none;overflow-wrap:anywhere}
+footer{background:#111;color:white;text-align:center;padding:35px 15px;line-height:2}
+footer strong{color:var(--gold)}
+footer a{color:white;text-decoration:none}
+#cart-panel{display:none;background:#f5f5f5;padding:25px;margin:20px 6%;border:1px solid #ddd}
+#cart-panel h2{margin-bottom:15px}
+.cart-line{padding:10px 0;border-bottom:1px solid #ddd}
+#cart-panel button{margin:8px 5px 0 0;padding:10px;cursor:pointer}
+.empty{color:#777}
+@media(max-width:850px){
+.categories{grid-template-columns:repeat(2,1fr)}
+.products{grid-template-columns:repeat(2,1fr)}
+header{justify-content:center}
+nav{justify-content:center}
+}
+@media(max-width:480px){
+.logo{font-size:22px}
+nav{gap:12px}
+nav a{font-size:12px}
+.hero{min-height:380px;padding:35px 6%}
+.hero h1{font-size:42px}
+section{padding:40px 4%}
+.products{gap:10px}
+.product img{height:175px}
+.product-info{padding:10px}
+.product-info h3{font-size:14px}
+.contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">ARASA <span>DIGITAL</span></div>
+<nav>
+<a href="#home">HOME</a>
+<a href="#categories">CATEGORIES</a>
+<a href="#shop">SHOP</a>
+<a href="#about">ABOUT</a>
+<a href="#contact">CONTACT</a>
+</nav>
+<button class="cart" onclick="toggleCart()">🛒 CART (<span id="count">0</span>)</button>
+</header>
+
+<main>
+<div class="hero" id="home">
+<div class="hero-content">
+<small>WELCOME TO ARASA DIGITAL</small>
+<h1>YOUR STYLE.<br>YOUR IDENTITY.</h1>
+<p>Discover the latest fashion trends. Shop stylish clothing, sneakers and accessories designed to make you stand out.</p>
+<a href="#shop" class="btn">EXPLORE COLLECTION</a>
+</div>
+</div>
+
+<section id="categories">
+<div class="section-title">
+<small>DISCOVER YOUR STYLE</small>
+<h2>SHOP BY CATEGORY</h2>
+</div>
+<div class="categories">
+<div class="category">
+<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" alt="Women's fashion">
+<a href="#shop" onclick="filterProducts('Women')">WOMEN'S FASHION</a>
+</div>
+<div class="category">
+<img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" alt="Men's fashion">
+<a href="#shop" onclick="filterProducts('Men')">MEN'S FASHION</a>
+</div>
+<div class="category">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Sneakers">
+<a href="#shop" onclick="filterProducts('Shoes')">SHOES</a>
+</div>
+<div class="category">
+<img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500" alt="Accessories">
+<a href="#shop" onclick="filterProducts('Accessories')">ACCESSORIES</a>
+</div>
+</div>
+</section>
+
+<section id="shop">
+<div class="section-title">
+<small>OUR COLLECTION</small>
+<h2>FEATURED PRODUCTS</h2>
+</div>
+
+<div class="filters">
+<button class="filter active" onclick="filterProducts('All',this)">ALL</button>
+<button class="filter" onclick="filterProducts('Men',this)">MEN</button>
+<button class="filter" onclick="filterProducts('Women',this)">WOMEN</button>
+<button class="filter" onclick="filterProducts('Shoes',this)">SHOES</button>
+<button class="filter" onclick="filterProducts('Accessories',this)">ACCESSORIES</button>
+</div>
+
+<div class="products" id="product-list">
+
+<div class="product" data-category="Men">
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" alt="Men's T-shirt">
+<div class="product-info">
+<small>MEN'S COLLECTION</small>
+<h3>Classic Casual T-Shirt</h3>
+<div class="price">KSh 1,200</div>
+<button class="add" onclick="addToCart('Classic Casual T-Shirt',1200)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Women">
+<img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500" alt="Women's fashion">
+<div class="product-info">
+<small>WOMEN'S COLLECTION</small>
+<h3>Elegant Fashion Outfit</h3>
+<div class="price">KSh 2,500</div>
+<button class="add" onclick="addToCart('Elegant Fashion Outfit',2500)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Shoes">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Red sneakers">
+<div class="product-info">
+<small>FOOTWEAR</small>
+<h3>Sporty Sneakers</h3>
+<div class="price">KSh 3,500</div>
+<button class="add" onclick="addToCart('Sporty Sneakers',3500)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Men">
+<img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500" alt="Men's shirt">
+<div class="product-info">
+<small>MEN'S COLLECTION</small>
+<h3>Premium Casual Shirt</h3>
+<div class="price">KSh 2,000</div>
+<button class="add" onclick="addToCart('Premium Casual Shirt',2000)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Women">
+<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500" alt="Women's dress">
+<div class="product-info">
+<small>WOMEN'S COLLECTION</small>
+<h3>Modern Fashion Dress</h3>
+<div class="price">KSh 3,000</div>
+<button class="add" onclick="addToCart('Modern Fashion Dress',3000)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Shoes">
+<img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500" alt="Fashion shoes">
+<div class="product-info">
+<small>FOOTWEAR</small>
+<h3>Classic Casual Shoes</h3>
+<div class="price">KSh 4,000</div>
+<button class="add" onclick="addToCart('Classic Casual Shoes',4000)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Accessories">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Watch">
+<div class="product-info">
+<small>ACCESSORIES</small>
+<h3>Classic Wrist Watch</h3>
+<div class="price">KSh 1,800</div>
+<button class="add" onclick="addToCart('Classic Wrist Watch',1800)">ADD TO CART</button>
+</div>
+</div>
+
+<div class="product" data-category="Accessories">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Fashion accessories">
+<div class="product-info">
+<small>ACCESSORIES</small>
+<h3>Fashion Collection</h3>
+<div class="price">KSh 1,500</div>
+<button class="add" onclick="addToCart('Fashion Collection',1500)">ADD TO CART</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<div id="cart-panel">
+<h2>YOUR SHOPPING CART</h2>
+<div id="cart-items"><p class="empty">Your cart is empty.</p></div>
+<h3>Total: KSh <span id="total">0</span></h3>
+<button class="btn" onclick="checkout()">ORDER VIA EMAIL</button>
+<button onclick="clearCart()">CLEAR CART</button>
+</div>
+
+<div class="banner">
+<small>ARASA DIGITAL FASHION STORE</small>
+<h2>LOOK GOOD. FEEL CONFIDENT.</h2>
+<p>Upgrade your wardrobe with our latest fashion collections.</p>
+<a href="#shop" class="btn">SHOP NOW</a>
+</div>
+
+<section id="about" class="about">
+<div class="section-title">
+<small>WHO WE ARE</small>
+<h2>ABOUT ARASA DIGITAL</h2>
+</div>
+<p>Welcome to Arasa Digital, your fashion destination for stylish clothing, quality footwear and modern accessories. Our aim is to make fashion accessible, enjoyable and convenient. Discover your look and express your identity with Arasa Digital.</p>
+</section>
+
+<section id="contact">
+<div class="section-title">
+<small>WE ARE HERE FOR YOU</small>
+<h2>CONTACT US</h2>
+<p>Have a question or want to place an order? Get in touch.</p>
+</div>
+<div class="contact-grid">
+<div class="contact-card">
+<h3>📧 EMAIL</h3>
+<a href="mailto:mosesarasa3@gmail.com">mosesarasa3@gmail.com</a>
+</div>
+<div class="contact-card">
+<h3>📱 PHONE</h3>
+<a href="tel:+254793456478">0793456478</a>
+</div>
+<div class="contact-card">
+<h3>💬 WHATSAPP</h3>
+<a href="https://wa.me/254793456478">Chat with us</a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="logo">ARASA <span>DIGITAL</span></div>
+<p>YOUR STYLE. YOUR IDENTITY.</p>
+<p>Email: mosesarasa3@gmail.com</p>
+<p>Phone: 0793456478</p>
+<p>© 2026 ARASA DIGITAL. All Rights Reserved.</p>
+</footer>
+
+<script>
+let cart=[];
+function addToCart(name,price){
+cart.push({name,price});
+updateCart();
+alert(name+" added to your cart!");
+}
+function updateCart(){
+document.getElementById('count').textContent=cart.length;
+document.getElementById('total').textContent=cart.reduce((sum,item)=>sum+item.price,0).toLocaleString('en-KE');
+let box=document.getElementById('cart-items');
+if(cart.length===0){
+box.innerHTML='<p class="empty">Your cart is empty.</p>';
+return;
+}
+box.innerHTML=cart.map((item,index)=>
+'<div class="cart-line">'+item.name+' - KSh '+item.price.toLocaleString('en-KE')+
+' <button onclick="removeItem('+index+')">Remove</button></div>'
+).join('');
+}
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
+function clearCart(){
+cart=[];
+updateCart();
+}
+function toggleCart(){
+let panel=document.getElementById('cart-panel');
+panel.style.display=panel.style.display==='block'?'none':'block';
+panel.scrollIntoView({behavior:'smooth'});
+}
+function filterProducts(category,button){
+document.querySelectorAll('.product').forEach(product=>{
+product.style.display=(category==='All'||product.dataset.category===category)?'':'none';
+});
+document.querySelectorAll('.filter').forEach(btn=>btn.classList.remove('active'));
+if(button)button.classList.add('active');
+}
+function checkout(){
+if(cart.length===0){alert('Your cart is empty!');return;}
+let message='Hello Arasa Digital, I would like to order:%0A';
+cart.forEach(item=>{message+=encodeURIComponent(item.name+' - KSh '+item.price)+'%0A';});
+message+='Total: KSh '+cart.reduce((sum,item)=>sum+item.price,0);
+window.location.href='mailto:mosesarasa3@gmail.com?subject=Fashion Order&body='+message;
+}
+</script>
+</body>
+</html>
